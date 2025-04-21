@@ -25,6 +25,8 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -35,6 +37,13 @@ function StudentDashboard() {
   const [form, setForm] = useState({ name: '', age: '', course: '' });
   const [editId, setEditId] = useState(null);
   const [open, setOpen] = useState(false);
+
+  const navigate = useNavigate(); // ✅ correct placement
+
+  const handleLogout = () => {
+    localStorage.removeItem('isAuthenticated');
+    navigate('/login');
+  };
 
   useEffect(() => {
     fetchStudents();
