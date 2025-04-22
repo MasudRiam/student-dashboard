@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import {
+ import {
   ThemeProvider,
   createTheme,
   CssBaseline,
@@ -8,49 +8,50 @@ import {
   Toolbar,
   Typography,
   Box
-} from '@mui/material';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+ } from '@mui/material';
+ import Brightness4Icon from '@mui/icons-material/Brightness4';
+ import Brightness7Icon from '@mui/icons-material/Brightness7';
+ import { BrowserRouter, Routes, Route } from 'react-router-dom';
+ import StudentDashboard from './StudentDashboard';
+ import Login from './Login';
+ import ParentDetailsPage from './ParentDetailsPage';  // Import the new component
 
-import StudentDashboard from './StudentDashboard';
-import Login from './Login'; // make sure Login.js exists
-
-function App() {
+ function App() {
   const [mode, setMode] = useState('light');
 
   const theme = useMemo(() =>
-    createTheme({
-      palette: {
-        mode,
-      },
-    }), [mode]
+  createTheme({
+  palette: {
+  mode,
+  },
+  }), [mode]
   );
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <BrowserRouter>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              Student Dashboard
-            </Typography>
-            <IconButton onClick={() => setMode(mode === 'light' ? 'dark' : 'light')} color="inherit">
-              {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
-            </IconButton>
-          </Toolbar>
-        </AppBar>
+  <ThemeProvider theme={theme}>
+  <CssBaseline />
+  <BrowserRouter>
+  <AppBar position="static">
+  <Toolbar>
+  <Typography variant="h6" sx={{ flexGrow: 1 }}>
+  Student Dashboard
+  </Typography>
+  <IconButton onClick={() => setMode(mode === 'light' ? 'dark' : 'light')} color="inherit">
+  {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
+  </IconButton>
+  </Toolbar>
+  </AppBar>
 
-        <Box sx={{ p: 3 }}>
-          <Routes>
-            <Route path="/" element={<StudentDashboard />} />
-            <Route path="/login" element={<Login />} />
-          </Routes>
-        </Box>
-      </BrowserRouter>
-    </ThemeProvider>
+  <Box sx={{ p: 3 }}>
+  <Routes>
+  <Route path="/" element={<StudentDashboard />} />
+  <Route path="/login" element={<Login />} />
+  <Route path="/parent/:studentId" element={<ParentDetailsPage />} /> {/* Corrected route */}
+  </Routes>
+  </Box>
+  </BrowserRouter>
+  </ThemeProvider>
   );
-}
+ }
 
-export default App;
+ export default App;
